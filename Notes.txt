@@ -1,0 +1,58 @@
+Notes
+
+create requirements.txt and DockerFile
+install this
+
+apm install language-docker
+
+-->>> install docker and docker compose 
+like below
+FROM python:3.7-alpine
+MAINTAINER Akash Anand
+
+ENV PYTHONUNBUFFERED 1
+
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
+
+# creating a directory and using it as  awork directory on docker
+
+RUN mkdir /app
+WORKDIR /app
+COPY ./app /app
+
+#this copies app on out local to the docker imah
+
+#wea re creating a user and runnning that user
+RUN adduser -D user
+USER user
+
+use command to run docker build
+
+---->>>> docker build .
+
+also create a folder app
+
+sec4:
+
+Docker Composed configuration manage different services
+
+the file goes into the root of our project
+
+-->> docker-compose.yaml
+1) 1st line is docke version ex : version : ""
+2) services needed  for our application
+
+ex : services:
+    app:
+      build:
+        context: . (where . (dot) represents current directory)
+      ports:
+        - "8000:8000"
+        volumes:
+          -./app:/app   #volumes allowed updated to be sent to our docker whenever we make changes locally
+         command: >
+          command to be use to run our docker project
+          sh -c "python manage.py runserver 0.0.0.0:8000"
+
+-->> docker-compose build
