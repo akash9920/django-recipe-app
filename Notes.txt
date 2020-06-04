@@ -5,7 +5,7 @@ install this
 
 apm install language-docker
 
--->>> install docker and docker compose 
+-->>> install docker and docker compose
 like below
 FROM python:3.7-alpine
 MAINTAINER Akash Anand
@@ -56,3 +56,26 @@ ex : services:
           sh -c "python manage.py runserver 0.0.0.0:8000"
 
 -->> docker-compose build
+
+
+l20
+In above if we can see, app is a service ansd we can have more than one or two service
+
+-->> docker-compose run app sh -c "django-admin.py startproject app ."
+
+-------------enable travic CI:
+
+go to travis ci account and enable the build using setting (login using the github account)
+
+
+-->> configuration file, we can tell travis ci waht to do
+in root directory create .travis.yaml
+
+1st line = language : "" and then mention the version in nest  line
+
+service: ex  docker
+
+before_script: a script travis will run to
+
+script: bascially to test and run the project
+- docker-compose run app sh -c "python manage.py test && flake8"
